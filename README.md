@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Reference-Styled Weather Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Hero layout](README_images/hero-preview.png)
+![Forecast detail](README_images/forecast-preview.png)
 
-## Available Scripts
+This project is a React-based weather dashboard that mirrors the provided hero/forecast reference screens while remaining fully powered by the OpenWeatherMap APIs. The search bar drives live data, the hero card surfaces the current temperature/conditions, and the forecast cards present the next few entries with matching icons.
 
-In the project directory, you can run:
+## Project Description
 
-### `npm start`
+- **Hero + Forecast Layout**: A gradient night-sky backdrop with a hero card on the left and a forecast card on the right, matching the provided mockups in spacing and typography.
+- **Live Data Integration**: Fetches both the current weather (`/weather`) and a five-entry forecast (`/forecast`), then keeps the toggle-able units and status messaging in sync.
+- **Units & Accessibility**: A toggle lets users switch between metric and imperial, while `aria` attributes on the unit button ensure the state is announced.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Setup Steps
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Install dependencies:
 
-### `npm test`
+   ```bash
+   npm install
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Provide your OpenWeatherMap API key in a `.env.local` or `.env` file at the project root:
 
-### `npm run build`
+   ```env
+   REACT_APP_OPENWEATHER_KEY=your_real_key_here
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Start the dev server:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. (Optional) Build for production to verify everything compiles:
 
-### `npm run eject`
+   ```bash
+   npm run build
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## API Usage
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `https://api.openweathermap.org/data/2.5/weather`: Retrieves the current conditions shown in the hero card and stats.
+- `https://api.openweathermap.org/data/2.5/forecast`: Pulls the next five data points for the forecast row, which deduplicates by calendar day before rendering.
+- Both endpoints are called with the selected unit (metric or imperial) so toggling the unit button re-fetches every value.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Notes & Assumptions
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- The hero and forecast cards expect PNG/SVG icons from OpenWeatherMap; fallback logic uses the current weather icon when the forecast response is missing an icon.
+- Forecast entries are deduplicated by the localized weekday name, so the card order mirrors the upcoming calendar days even if the API returns three-hour snapshots.
+- Place the attached `hero-preview.png` and `forecast-preview.png` inside the `README_images` folder so the images render above this text (create the folder if it is missing).
