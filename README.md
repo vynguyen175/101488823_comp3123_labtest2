@@ -6,7 +6,7 @@
 
 ![Home screen showing Vancouver weather](public/screenshots/screenshot.png)
 
-!(public/screenshots/screenshot1.png)
+![Home screen showing Vancouver weather](public/screenshots/screenshot1.png)
 
 
 ## Project Description
