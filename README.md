@@ -1,15 +1,13 @@
 # Reference-Styled Weather Dashboard
 
-![Hero layout](README_images/hero-preview.png)
-![Forecast detail](README_images/forecast-preview.png)
-
-This project is a React-based weather dashboard that mirrors the provided hero/forecast reference screens while remaining fully powered by the OpenWeatherMap APIs. The search bar drives live data, the hero card surfaces the current temperature/conditions, and the forecast cards present the next few entries with matching icons.
+![Hero layout](public\Screenshot 2025-11-27 175516.png)
+![Forecast detail](public\Screenshot 2025-11-27 175524.png)
 
 ## Project Description
 
-- **Hero + Forecast Layout**: A gradient night-sky backdrop with a hero card on the left and a forecast card on the right, matching the provided mockups in spacing and typography.
-- **Live Data Integration**: Fetches both the current weather (`/weather`) and a five-entry forecast (`/forecast`), then keeps the toggle-able units and status messaging in sync.
-- **Units & Accessibility**: A toggle lets users switch between metric and imperial, while `aria` attributes on the unit button ensure the state is announced.
+- **Reference layout**: The hero card and forecast card mirror the provided mockups, including the rounded cards, neon typography, and layered cloudy background in `src/App.css` and `src/index.css`.
+- **Live OpenWeatherMap data**: The app fetches `/weather` for the hero section and `/forecast` for the next five entries, deduplicating the results by weekday so that each card corresponds to a distinct day.
+- **User controls & accessibility**: Users search for cities, toggle between metric and imperial units (the toggle exposes `aria-pressed`), and receive status messaging for loading/errors.
 
 ## Setup Steps
 
@@ -25,26 +23,26 @@ This project is a React-based weather dashboard that mirrors the provided hero/f
    REACT_APP_OPENWEATHER_KEY=your_real_key_here
    ```
 
-3. Start the dev server:
+3. Start the development server:
 
    ```bash
    npm start
    ```
 
-4. (Optional) Build for production to verify everything compiles:
+4. (Optional) Build for production to double-check everything compiles:
 
    ```bash
    npm run build
    ```
 
-## API Usage
+## API Used
 
-- `https://api.openweathermap.org/data/2.5/weather`: Retrieves the current conditions shown in the hero card and stats.
-- `https://api.openweathermap.org/data/2.5/forecast`: Pulls the next five data points for the forecast row, which deduplicates by calendar day before rendering.
-- Both endpoints are called with the selected unit (metric or imperial) so toggling the unit button re-fetches every value.
+- `https://api.openweathermap.org/data/2.5/weather`: Supplies the current temperature, feels-like value, humidity, wind speed, condition, and icon used in the hero card and stats.
+- `https://api.openweathermap.org/data/2.5/forecast`: Provides the upcoming entries that are deduplicated by localized weekday names before rendering the forecast cards.
+- Both endpoints respect the selected unit (metric or imperial), so toggling the button re-fetches both responses to keep labels and numbers coherent.
 
-## Notes & Assumptions
+## Notes
 
-- The hero and forecast cards expect PNG/SVG icons from OpenWeatherMap; fallback logic uses the current weather icon when the forecast response is missing an icon.
-- Forecast entries are deduplicated by the localized weekday name, so the card order mirrors the upcoming calendar days even if the API returns three-hour snapshots.
-- Place the attached `hero-preview.png` and `forecast-preview.png` inside the `README_images` folder so the images render above this text (create the folder if it is missing).
+- Forecast entries reuse the localized weekday label to avoid duplicate day cards, even though the `/forecast` endpoint returns three-hour snapshots.
+- When the forecast data lacks an icon, the hero card’s current weather icon is used as a fallback so the layout remains consistent.
+- Drop `hero-preview.png` and `forecast-preview.png` into the `README_images` folder so they render at the top of this document (create the folder if it is missing).
