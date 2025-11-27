@@ -1,7 +1,13 @@
-# Reference-Styled Weather Dashboard
+# Weather Dashboard
 
-![Hero layout](public\Screenshot 2025-11-27 175516.png)
-![Forecast detail](public\Screenshot 2025-11-27 175524.png)
+## Screenshots
+
+### Home screen
+
+![Home screen showing Vancouver weather](public/screenshots/screenshot.png)
+
+!(public/screenshots/screenshot1.png)
+
 
 ## Project Description
 
